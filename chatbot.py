@@ -1,16 +1,20 @@
 import pandas as pd
 from Levenshtein import distance
 
+# 챗봇 클래스를 정의합니다.
 class SimpleChatBot:
+    # 챗봇 객체를 초기화하는 메서드입니다.
     def __init__(self, filepath):
         self.questions, self.answers = self.load_data(filepath)
 
+    # CSV 파일로부터 질문과 답변 데이터를 불러오는 메서드입니다.
     def load_data(self, filepath):
         data = pd.read_csv(filepath)
-        questions = data['Q'].tolist()
-        answers = data['A'].tolist()
+        questions = data['Q'].tolist()  # 질문 열을 리스트로 저장
+        answers = data['A'].tolist()  # 답변 열을 리스트로 저장
         return questions, answers
 
+    # 입력 문장과 가장 유사한 질문을 찾아 해당하는 답변을 반환하는 메서드입니다.
     def find_best_answer(self, input_sentence):
         min_distance = float('inf')  # 초기 거리를 무한대로 설정
         best_match_index = -1  # 초기 가장 유사한 질문의 인덱스를 -1로 설정
@@ -34,4 +38,3 @@ while True:
         break
     response = chatbot.find_best_answer(input_sentence)
     print('Chatbot:', response)
-
